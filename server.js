@@ -1,20 +1,15 @@
 import express from "express";
 import dotenv from "dotenv";
-import userModel from "./user/user.model.js";
+import mongo from "./mongo.js";
+import userRouter from "./routes/user.route.js";
+
 dotenv.config();
 const app = express();
 const port = process.env.PORT;
-app.get("/", async (req, res) => {
-  const data = new userModel({
-    name: "ajay",
-    email: "aja@gmail.com",
-    password: "1234",
-    dob: "2002-12-09",
-  });
-  data.save();
-  res.send(data);
-});
+app.use(express.json());
+mongo();
 
+app.use("/user", userRouter);
 app.listen(port, () => {
   console.log(`server is running on ${port} port`);
 });
