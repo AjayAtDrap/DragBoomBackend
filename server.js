@@ -3,9 +3,19 @@ import dotenv from "dotenv";
 import mongo from "./utility/mongo.js";
 import userRouter from "./user/user.route.js";
 import redis from "./utility/redis.config.js";
+import cors from "cors";
 
-dotenv.config();
 const app = express();
+dotenv.config();
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+  })
+);
+
+app.options("*", cors());
 const port = process.env.PORT;
 app.use(express.json());
 mongo();
