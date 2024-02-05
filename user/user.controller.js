@@ -1,5 +1,5 @@
-import userModel from "../models/user.model.js";
-import { client } from "../redis.config.js";
+import userModel from "./user.model.js";
+import { client } from "../utility/redis.config.js";
 import bcrypt from "bcrypt";
 import { v4 as uuid } from "uuid";
 

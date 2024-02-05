@@ -1,4 +1,4 @@
-import { client } from "../redis.config.js";
+import { client } from "./redis.config.js";
 
 export const redisMiddleware = async (req, res, next) => {
   try {

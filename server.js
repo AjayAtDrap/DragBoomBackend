@@ -1,8 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
-import mongo from "./mongo.js";
-import userRouter from "./routes/user.route.js";
-import redis from "./redis.config.js";
+import mongo from "./utility/mongo.js";
+import userRouter from "./user/user.route.js";
+import redis from "./utility/redis.config.js";
 
 dotenv.config();
 const app = express();

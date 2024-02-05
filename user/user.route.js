@@ -1,5 +1,5 @@
 import express from "express";
-import { redisMiddleware } from "./reddis.middle.js";
+import { redisMiddleware } from "../utility/reddis.middle.js";
 import {
   alluser,
   deleteUser,
