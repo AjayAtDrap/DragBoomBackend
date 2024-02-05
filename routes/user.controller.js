@@ -1,6 +1,7 @@
 import userModel from "../models/user.model.js";
 import { client } from "../redis.config.js";
 import bcrypt from "bcrypt";
+import { v4 as uuid } from "uuid";
 
 export const alluser = async (req, res) => {
   try {
@@ -19,11 +20,11 @@ export const alluser = async (req, res) => {
 };
 export const getUser = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { uid } = req.params;
     const { method, originalUrl } = req;
     const key = `${method}:${originalUrl}`;
     console.log(method, originalUrl);
-    const userData = await userModel.findById(id);
+    const userData = await userModel.findOne(uid);
     await client.set(key, JSON.stringify(userData));
     client.expire(key, 10);
     console.log("data from DB", userData);
@@ -69,6 +70,7 @@ export const postUser = async (req, res) => {
       dob,
       username,
       password: hashedPassword,
+      uid: uuid(),
     });
     await userData.save();
     res.status(201).json(userData);
