@@ -10,7 +10,7 @@ export const alluser = async (req, res) => {
     const alluser = await userModel.find();
     console.log(method, originalUrl);
     await client.set(key, JSON.stringify(alluser));
-    client.expire(key, 10);
+    client.expire(key, 50);
     console.log("data from DB", alluser);
     res.status(200).json(alluser);
   } catch (error) {
@@ -20,13 +20,13 @@ export const alluser = async (req, res) => {
 };
 export const getUser = async (req, res) => {
   try {
-    const { uid } = req.params;
+    const { id } = req.params;
     const { method, originalUrl } = req;
     const key = `${method}:${originalUrl}`;
     console.log(method, originalUrl);
-    const userData = await userModel.findOne(uid);
+    const userData = await userModel.findById(id);
     await client.set(key, JSON.stringify(userData));
-    client.expire(key, 10);
+    client.expire(key, 50);
     console.log("data from DB", userData);
     res.status(201).json(userData);
   } catch (err) {
