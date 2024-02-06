@@ -41,13 +41,14 @@ export const alluser = async (req, res) => {
 
 export const getUser = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
+    // console.log("line 45", req.body);
     const { method, originalUrl } = req;
     const key = `${method}:${originalUrl}`;
 
     console.log(method, originalUrl);
 
-    const userData = await userModel.findOne({ username });
+    const userData = await userModel.findOne({ email });
 
     if (!userData) {
       return res.status(401).json({ error: "User not found" });
@@ -116,5 +117,19 @@ export const postUser = async (req, res) => {
     res.status(201).json(userData);
   } catch (err) {
     res.status(500).send("Internal Server Error");
+  }
+};
+export const singleUser = async (req, res) => {
+  // const token = req.header("Authorization");
+  // console.log("into GetUser", token);'
+  try {
+    console.log("id", req.user);
+    const { userId } = req.user;
+    const userData = await userModel.findById(userId);
+    console.log("control", userData);
+    res.status(201).json(userData);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: "Server Error" });
   }
 };
