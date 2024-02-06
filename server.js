@@ -4,6 +4,7 @@ import mongo from "./utility/mongo.js";
 import userRouter from "./user/user.route.js";
 import redis from "./utility/redis.config.js";
 import cors from "cors";
+import pageRouter from "./pages/pages.route.js";
 
 const app = express();
 dotenv.config();
@@ -22,6 +23,7 @@ mongo();
 redis();
 
 app.use("/user", userRouter);
+app.use("/page", pageRouter);
 app.listen(port, () => {
   console.log(`server is running on ${port} port`);
 });
